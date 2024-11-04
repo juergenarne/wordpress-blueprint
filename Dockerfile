@@ -6,14 +6,10 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libfreetype6-dev \
     libzip-dev \
+    libicu-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd mysqli zip
-
-# Enable Apache mod_rewrite for pretty permalinks
-RUN a2enmod rewrite
-
-# Install PHP extensions
-RUN docker-php-ext-install mysqli
+    && docker-php-ext-configure intl \ 
+    && docker-php-ext-install gd mysqli zip intl
 
 # Enable Apache mod_rewrite for WordPress permalinks
 RUN a2enmod rewrite
